@@ -26,6 +26,12 @@ namespace keyPressAnimations
         //create graphic objects
         SolidBrush drawBrush = new SolidBrush(Color.Black);
 
+        //direction variable
+        int direction = 0;
+
+        //image array
+        Image[] hero = new Image[4];
+
         public Form1()
         {
             InitializeComponent();
@@ -33,6 +39,11 @@ namespace keyPressAnimations
             //start the timer when the program starts
             gameTimer.Enabled = true;
             gameTimer.Start();
+
+            hero[0] = Properties.Resources.RedGuyLeft;
+            hero[1] = Properties.Resources.RedGuyDown;
+            hero[2] = Properties.Resources.RedGuyRight;
+            hero[3] = Properties.Resources.RedGuyUp;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -87,18 +98,22 @@ namespace keyPressAnimations
             if (leftArrowDown == true)
             {
                 drawX--;
+                direction = 0;
             }
             if (downArrowDown == true)
             {
                 drawY++;
+                direction = 1;
             }
             if (rightArrowDown == true)
             {
                 drawX++;
+                direction = 2;
             }
             if (upArrowDown == true)
             {
                 drawY--;
+                direction = 3;
             }
 
             //refresh the screen, which causes the Form1_Paint method to run
@@ -109,8 +124,27 @@ namespace keyPressAnimations
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            //draw rectangle to screen
-            e.Graphics.FillRectangle(drawBrush, drawX, drawY, 10, 20);
+
+            //draw hero images based on direction
+            //left
+            if (direction == 0)
+            {
+                e.Graphics.DrawImage(hero[0], drawX, drawY, 20, 40);
+            }
+            //down
+            else if (direction == 1)
+            {
+                e.Graphics.DrawImage(hero[1], drawX, drawY, 20, 40);
+            }
+            //right
+            else if (direction == 2)
+            {
+                e.Graphics.DrawImage(hero[2], drawX, drawY, 20, 40);
+            }
+            else if (direction == 3)
+            {
+                e.Graphics.DrawImage(hero[3], drawX, drawY, 20, 40);
+            }
         }
 
     }
