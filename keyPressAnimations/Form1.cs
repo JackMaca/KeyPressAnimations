@@ -124,27 +124,7 @@ namespace keyPressAnimations
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-
-            //draw hero images based on direction
-            //left
-            if (direction == 0)
-            {
-                e.Graphics.DrawImage(hero[0], drawX, drawY, 20, 40);
-            }
-            //down
-            else if (direction == 1)
-            {
-                e.Graphics.DrawImage(hero[1], drawX, drawY, 20, 40);
-            }
-            //right
-            else if (direction == 2)
-            {
-                e.Graphics.DrawImage(hero[2], drawX, drawY, 20, 40);
-            }
-            else if (direction == 3)
-            {
-                e.Graphics.DrawImage(hero[3], drawX, drawY, 20, 40);
-            }
+            e.Graphics.DrawImage(hero[direction], drawX, drawY, 20, 40); 
         }
 
     }
