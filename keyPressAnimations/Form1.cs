@@ -1,4 +1,5 @@
-﻿using System;
+﻿/// Object Animation created along with classes for players, bullets, and monsters
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,11 +7,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
-/* Created by Mr. T
- * to demonstrate how to use key presses to control the animation
- * of an object on screen
- */
 
 namespace keyPressAnimations
 {
