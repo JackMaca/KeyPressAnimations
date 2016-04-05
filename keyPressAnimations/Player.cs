@@ -9,36 +9,32 @@ namespace keyPressAnimations
     class Player
     {
         public int x, y, size, speed;
-        Image[] hero = new Image[4];
+        public Image[] hero = new Image[4];
 
-        public Player(int _x, int _y, int _size, int _speed)
+        public Player(int _x, int _y, int _size, int _speed, Array _hero)
         {
             x = _x;
             y = _y;
             size = _size;
             speed = _speed;
-
-            hero[0] = Properties.Resources.RedGuyLeft;
-            hero[1] = Properties.Resources.RedGuyDown;
-            hero[2] = Properties.Resources.RedGuyRight;
-            hero[3] = Properties.Resources.RedGuyUp;
+            _hero = hero;
         }
 
-        public void move(Player p, string direction)
+        public void move(Player p, int direction)
         {
-            if (direction == "left")
+            if (direction == 0)
             {
                 p.x -= p.speed;
             }
-            else if (direction == "right")
+            else if (direction == 1)
             {
                 p.x += p.speed;
             }
-            else if (direction == "up")
+            else if (direction == 2)
             {
                 p.y -= p.speed;
             }
-            else if (direction == "down")
+            else if (direction == 3)
             {
                 p.y += p.speed;
             }

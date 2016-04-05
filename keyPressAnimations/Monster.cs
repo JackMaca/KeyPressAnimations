@@ -9,39 +9,38 @@ namespace keyPressAnimations
     class Monster
     {
         public int x, y, size, speed;
-        Image[] hero = new Image[4];
+        Image[] monster = new Image[4];
 
-        public Monster(int _x, int _y, int _size, int _speed)
+        public Monster(int _x, int _y, int _size, int _speed, Array _monster)
         {
             x = _x;
             y = _y;
             size = _size;
             speed = _speed;
-        
-            //TODO add monster images
+            _monster = monster;
         }
 
-        public void move(Monster m, string direction)
+        public void move(Monster m, int direction)
         {
-            if (direction == "mLeft")
+            if (direction == 0)
             {
                 m.x -= m.speed;
             }
-            else if (direction == "mRight")
+            else if (direction == 1)
             {
                 m.x += m.speed;
             }
-            else if (direction == "mUp")
+            else if (direction == 2)
             {
                 m.y -= m.speed;
             }
-            else if (direction == "mDown")
+            else if (direction == 3)
             {
                 m.y += m.speed;
             }
         }
         //collision between bullet and monster
-        public bool collision(Monster m, Bullet b)
+        public bool bulletCollision(Monster m, Bullet b)
         {
             Rectangle mRec = new Rectangle(m.x, m.y, m.size, m.size);
             Rectangle bRec = new Rectangle(b.x, b.y, b.size, b.size);
