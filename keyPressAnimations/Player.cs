@@ -28,11 +28,11 @@ namespace keyPressAnimations
             }
             else if (direction == 1)
             {
-                p.x += p.speed;
+                p.y -= p.speed;
             }
             else if (direction == 2)
             {
-                p.y -= p.speed;
+                p.x += p.speed;
             }
             else if (direction == 3)
             {
