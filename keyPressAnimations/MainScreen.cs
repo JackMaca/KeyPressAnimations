@@ -58,7 +58,7 @@ namespace keyPressAnimations
         private void MainScreen_Load(object sender, EventArgs e)
         {            
             //set initial position
-            Player p = new Player(150, 150, 20, 10, hero);
+            p = new Player(150, 150, 20, 10, hero);
 
             //add initial monster to list and set position           
 
@@ -123,64 +123,64 @@ namespace keyPressAnimations
             ////for the player appropriately
             if (ADown == true)
             {
+                p.move(p, 0);
                 direction = 0;
-                p.x--;
             }
             if (SDown == true)
             {
+                p.move(p, 1);
                 direction = 1;
-                p.y++;
             }
             if (DDown == true)
             {
+                p.move(p, 2);
                 direction = 2;
-                p.x++;
             }
             if (WDown == true)
             {
+                p.move(p, 3);
                 direction = 3;
-                p.y--;
             }
             //firing a bullet
-            if (fire == true)
-            {
-                Bullet b = new Bullet(p.x, p.y, 2, 20, direction);
-                bullets.Add(b);
-            }
+            //if (fire == true)
+            //{
+            //    Bullet b = new Bullet(p.x, p.y, 2, 20, direction);
+            //    bullets.Add(b);
+            //}
             #endregion
 
             #region new monsters
             //new duck after 10 seconds, skeleton after 20
-            int i = 0;
-            for (i = 0; i<=320; i++)
-            {
-                if (i == 160)
-                {
-                    Monster d = new Monster(700, 700, 40, 4, ducks);
-                    duck.Add(d);
-                }
-                if (i == 320)
-                {
-                    Monster d0 = new Monster(500, 500, 30, 7, skel);
-                    skeleton.Add(d0);
+            //int i = 0;
+            //for (i = 0; i<=320; i++)
+            //{
+            //    if (i == 160)
+            //    {
+            //        Monster d = new Monster(700, 700, 40, 4, ducks);
+            //        duck.Add(d);
+            //    }
+            //    if (i == 320)
+            //    {
+            //        Monster d0 = new Monster(500, 500, 30, 7, skel);
+            //        skeleton.Add(d0);
 
-                    i = 0;
-                }
-            }
+            //        i = 0;
+            //    }
+            //}
             #endregion
 
             #region collision
             //collision between skeletons and ducks
-            int sk = 0;
-            int dk = 0;
-            for (sk = 0; sk<=skeleton.Count; sk++)
-            {
+            //int sk = 0;
+            //int dk = 0;
+            //for (sk = 0; sk<=skeleton.Count; sk++)
+            //{
 
-            }
-            for (dk = 0; dk<=duck.Count; dk++)
-            {
+            //}
+            //for (dk = 0; dk<=duck.Count; dk++)
+            //{
 
-            }
+            //}
             #endregion
 
             //refresh the screen, which causes the Form1_Paint method to run
