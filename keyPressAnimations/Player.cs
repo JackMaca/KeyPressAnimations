@@ -28,7 +28,7 @@ namespace keyPressAnimations
             }
             else if (direction == 1)
             {
-                p.y -= p.speed;
+                p.y += p.speed;
             }
             else if (direction == 2)
             {
@@ -36,7 +36,7 @@ namespace keyPressAnimations
             }
             else if (direction == 3)
             {
-                p.y += p.speed;
+                p.y -= p.speed;
             }
         }
         //collision from player with monster

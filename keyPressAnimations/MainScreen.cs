@@ -17,14 +17,18 @@ namespace keyPressAnimations
 
         //create graphic objects
         SolidBrush drawBrush = new SolidBrush(Color.Black);
+        SolidBrush whiteBrush = new SolidBrush(Color.White);
 
-        //direction variable
+        //direction variable for player
         int direction = 0;
 
         //player object, monster list, and bullet list
         List<Monster> skeleton = new List<Monster>();
         List<Monster> duck = new List<Monster>();
         List<Bullet> bullets = new List<Bullet>();
+
+        //skeleton direction variable
+        int sDirection = 0;
 
         #region image arrays
         static Image skel0 = Properties.Resources.skeletonDown;
@@ -34,6 +38,8 @@ namespace keyPressAnimations
 
         static Image[] skel = { skel0, skel1, skel2, skel3 };
 
+        //duck direction variable
+        int dDirection = 0;
         static Image duck0 = Properties.Resources.duckDown;
         static Image duck1 = Properties.Resources.duckLeft;
         static Image duck2 = Properties.Resources.duckRight;
@@ -41,8 +47,8 @@ namespace keyPressAnimations
 
         static Image[] ducks = { duck0, duck1, duck2, duck3 };
 
-        static Image hero0 = Properties.Resources.RedGuyDown;
-        static Image hero1 = Properties.Resources.RedGuyLeft;
+        static Image hero0 = Properties.Resources.RedGuyLeft;
+        static Image hero1 = Properties.Resources.RedGuyDown;
         static Image hero2 = Properties.Resources.RedGuyRight;
         static Image hero3 = Properties.Resources.RedGuyUp;
 
@@ -53,10 +59,11 @@ namespace keyPressAnimations
         public MainScreen()
         {
             InitializeComponent();
+            gameTimer.Enabled = true;
         }
 
         private void MainScreen_Load(object sender, EventArgs e)
-        {            
+        {
             //set initial position
             p = new Player(150, 150, 20, 10, hero);
 
@@ -117,7 +124,7 @@ namespace keyPressAnimations
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)
-        {
+        {          
             #region Key Booleans
             ////checks to see if any keys have been pressed and adjusts the X or Y value
             ////for the player appropriately
@@ -126,28 +133,66 @@ namespace keyPressAnimations
                 p.move(p, 0);
                 direction = 0;
             }
-            if (SDown == true)
+            else if (SDown == true)
             {
                 p.move(p, 1);
                 direction = 1;
             }
-            if (DDown == true)
+            else if (DDown == true)
             {
                 p.move(p, 2);
                 direction = 2;
             }
-            if (WDown == true)
+            else if (WDown == true)
             {
                 p.move(p, 3);
                 direction = 3;
             }
             //firing a bullet
-            //if (fire == true)
-            //{
-            //    Bullet b = new Bullet(p.x, p.y, 2, 20, direction);
-            //    bullets.Add(b);
-            //}
+            if (fire == true)
+            {
+                //max 3 bullets at once
+                if (bullets.Count <= 2)
+                {
+                    Bullet b = new Bullet(p.x + 5, p.y + 10, 2, 20, direction);
+                    bullets.Add(b);
+                }
+                else
+                {
+
+                }
+            }
+            int i = 0;
+            for (i = 0; i<bullets.Count; i++)
+            {
+                //move all bullets in their initial direction
+                bullets[i].move(bullets[i], bullets[i].direction);
+
+                //remove bullets that leave the screen
+                if (bullets[i].x < -2)
+                {
+                    bullets.RemoveAt(i);
+                }
+                else if (bullets[i].x > 750)
+                {
+                    bullets.RemoveAt(i);
+                }
+                else if (bullets[i].y < -2)
+                {
+                    bullets.RemoveAt(i);
+                }
+                else if (bullets[i].y > 750)
+                {
+                    bullets.RemoveAt(i);
+                }
+                else
+                {
+
+                }
+            }
             #endregion
+
+            //move bullets after checking if null
 
             #region new monsters
             //new duck after 10 seconds, skeleton after 20
@@ -189,20 +234,26 @@ namespace keyPressAnimations
 
         private void MainScreen_Paint(object sender, PaintEventArgs e)
         {
+            DoubleBuffered = true;
             e.Graphics.DrawImage(hero[direction], p.x, p.y, 20, 30);
 
-            //int i = 0;
+            int i = 0;
+            for (i = 0; i < bullets.Count; i++)
+            {
+                e.Graphics.FillRectangle(whiteBrush, bullets[i].x, bullets[i].y, 2, 2);
+            }
+            //int i1 = 0;
             //int i2 = 0;
 
             ////draw images for skeletons and ducks
-            //for (i = 0; i<skeleton.Count; i++)
+            //for (i1 = 0; i<skeleton.Count; i++)
             //{
-
+            //    e.Graphics.DrawImage(skeleton[sDirection], )
             //}
 
             //for (i2 = 0; i2 < skeleton.Count; i2++)
             //{
-
+            //    e.Graphics.DrawImage(duck(dDirection), )
             //}
         }
     }

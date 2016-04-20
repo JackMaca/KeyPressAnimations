@@ -28,7 +28,7 @@ namespace keyPressAnimations
             }
             else if (direction == 1)
             {
-                m.y -= m.speed;
+                m.y += m.speed;
             }
             else if (direction == 2)
             {
@@ -36,7 +36,7 @@ namespace keyPressAnimations
             }
             else if (direction == 3)
             {
-                m.y += m.speed;
+                m.y -= m.speed;
             }
         }
         //collision between bullet and monster

@@ -24,7 +24,7 @@ namespace keyPressAnimations
             }
             else if (direction == 1)
             {
-                b.y -= b.speed;
+                b.y += b.speed;
             }
             else if (direction == 2)
             {
@@ -32,7 +32,7 @@ namespace keyPressAnimations
             }
             else if (direction == 3)
             {
-                b.y += b.speed;
+                b.y -= b.speed;
             }
         }
     }
