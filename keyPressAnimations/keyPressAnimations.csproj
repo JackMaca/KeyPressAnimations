@@ -126,13 +126,13 @@
     <None Include="Resources\duckDown.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\duckUp.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\duckLeft.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\duckRight.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\duckUp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

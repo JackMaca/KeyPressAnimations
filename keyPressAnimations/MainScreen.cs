@@ -15,7 +15,7 @@ namespace keyPressAnimations
         //determines whether a key is being pressed or not
         Boolean ADown, SDown, DDown, WDown, fire;
 
-        //create graphic objects
+        //create graphic objectsme
         SolidBrush drawBrush = new SolidBrush(Color.Black);
         SolidBrush whiteBrush = new SolidBrush(Color.White);
 
@@ -69,8 +69,11 @@ namespace keyPressAnimations
 
             //add initial monster to list and set position           
 
-            Monster d = new Monster(700, 700, 40, 4, ducks);
+            Monster d = new Monster(400, 400, 50, 2, ducks);
             duck.Add(d);
+
+            Monster sk = new Monster(-20, -20, 30, 3, skel);
+            skeleton.Add(sk);
         }
 
         private void MainScreen_KeyDown(object sender, KeyEventArgs e)
@@ -191,41 +194,152 @@ namespace keyPressAnimations
                 }
             }
             #endregion
+            #region monster movements
+            //movement for monsters
+            foreach (Monster d in duck)
+            {
+                if (d.x < p.x)
+                {
+                    d.move(d, 2);
+                    dDirection = 2;
+                }
+                else if (d.x > p.x)
+                {
+                    d.move(d, 0);
+                    dDirection = 0;
+                }
 
-            //move bullets after checking if null
+                if (d.y < p.y)
+                {
+                    d.move(d, 1);
+                    dDirection = 1;
+                }
+                else if (d.y > p.y)
+                {
+                    d.move(d, 3);
+                    dDirection = 3;
+                }
+            }
+            foreach (Monster d in skeleton)
+            {
+                if (d.x < p.x)
+                {
+                    d.move(d, 2);
+                    sDirection = 2;
+                }
+                else if (d.x > p.x)
+                {
+                    d.move(d, 0);
+                    sDirection = 0;
+                }
+
+                if (d.y < p.y)
+                {
+                    d.move(d, 1);
+
+                    //stops buggy image from flashing
+                    if (sDirection == 2)
+                    {
+
+                    }
+                    else
+                    {
+                        sDirection = 1;
+                    }
+                }
+                else if (d.y > p.y)
+                {
+                    d.move(d, 3);
+                    sDirection = 3;
+                }
+            }
+            #endregion
 
             #region new monsters
-            //new duck after 10 seconds, skeleton after 20
-            //int i = 0;
-            //for (i = 0; i<=320; i++)
-            //{
-            //    if (i == 160)
-            //    {
-            //        Monster d = new Monster(700, 700, 40, 4, ducks);
-            //        duck.Add(d);
-            //    }
-            //    if (i == 320)
-            //    {
-            //        Monster d0 = new Monster(500, 500, 30, 7, skel);
-            //        skeleton.Add(d0);
+            //new duck after 5 seconds, skeleton after 10
+            int time = 0;
+            time++;
+                if (time == 80)
+                {
+                    int speedBuff = 2;
+                    Monster d = new Monster(400, 400, 50, speedBuff, ducks);
+                    duck.Add(d);
 
-            //        i = 0;
-            //    }
-            //}
+                    //increase speed of next duck
+                    speedBuff++;
+                }
+                if (time == 160)
+                {
+                    //skeletons dont gain speed and are consistant.
+                    Monster d0 = new Monster(-30, -30, 30, 3, skel);
+                    skeleton.Add(d0);
+
+                    time = 0;
+                }
             #endregion
 
             #region collision
-            //collision between skeletons and ducks
-            //int sk = 0;
-            //int dk = 0;
-            //for (sk = 0; sk<=skeleton.Count; sk++)
-            //{
+            //collision between skeletons and ducks with bullets
+            int dk = 0;
+            for (dk = 0; dk <= duck.Count; dk++)
+            {               
+                //duck vs bullet collision
+                foreach (Bullet b in bullets)
+                {
+                    if (duck[dk].bulletCollision(duck[dk], b) == true)
+                    {
+                        duck.RemoveAt(dk);
+                    }
+                    else
+                    {
 
-            //}
-            //for (dk = 0; dk<=duck.Count; dk++)
-            //{
+                    }
+                }                
+            }
+            int skl = 0;
+            for (skl = 0; skl <= skeleton.Count; skl++)
+            {
+                //bullet collisions
+                foreach (Bullet b in bullets)
+                {
+                    if (skeleton[skl].bulletCollision(skeleton[skl], b) == true)
+                    {
+                        skeleton.RemoveAt(skl);
+                    }
+                    else
+                    {
 
+                    }                    
+                }
+            }
+
+            ////player collision with duck
+            //int duckL = 0;
+            //for (duckL = 0; duckL <= duck.Count; duckL++)
+            //{
+            //    if (p.collision(p, duck[duckL]) == true)
+            //    {
+            //        ((Form)this.TopLevelControl).Close();
+            //    }
+            //    else
+            //    {
+
+            //    }
             //}
+            ////player collision with skeleton
+            //int skeleL = 0;
+            //for (skeleL = 0; skeleL <= skeleton.Count; skeleL++)
+            //{
+            //    if (p.collision(p, skeleton[skeleL]) == true)
+            //    {
+            //        ((Form)this.TopLevelControl).Close();
+            //    }
+            //    else
+            //    {
+
+            //    }
+            //}
+
             #endregion
 
             //refresh the screen, which causes the Form1_Paint method to run
@@ -234,27 +348,28 @@ namespace keyPressAnimations
 
         private void MainScreen_Paint(object sender, PaintEventArgs e)
         {
+            //draw player
             DoubleBuffered = true;
             e.Graphics.DrawImage(hero[direction], p.x, p.y, 20, 30);
 
+            //draw bullets
             int i = 0;
             for (i = 0; i < bullets.Count; i++)
             {
                 e.Graphics.FillRectangle(whiteBrush, bullets[i].x, bullets[i].y, 2, 2);
             }
-            //int i1 = 0;
-            //int i2 = 0;
 
-            ////draw images for skeletons and ducks
-            //for (i1 = 0; i<skeleton.Count; i++)
-            //{
-            //    e.Graphics.DrawImage(skeleton[sDirection], )
-            //}
+            //draw ducks
+            foreach (Monster d in duck)
+            {
+                e.Graphics.DrawImage(ducks[dDirection], d.x, d.y, 50, 50);
+            }
 
-            //for (i2 = 0; i2 < skeleton.Count; i2++)
-            //{
-            //    e.Graphics.DrawImage(duck(dDirection), )
-            //}
+            //draw skeletons
+            foreach (Monster s in skeleton)
+            {
+                e.Graphics.DrawImage(skel[sDirection], s.x, s.y, 30, 40);
+            }
         }
     }
 }
